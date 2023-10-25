@@ -3,8 +3,10 @@
 
 // let paragrafo = document.querySelector('p');
 // paragrafo.innerHTML = 'Escolha um número entre 1 e 10';
-
-let numeroAleatorio = gerarNumeroAleatorio();
+let listaDeNumerosSorteados = [];
+let numeroLimite = 10;
+let numeroAleatorio;
+gerarNumeroAleatorio();
 let tentativas = 1;
 let reiniciarBt = document.getElementById('reiniciar');
 
@@ -38,7 +40,22 @@ function verificarChute() {
 }
 
 function gerarNumeroAleatorio() {
-  return parseInt(Math.random() * 10 + 1);
+  let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
+  let qntdElementosLista = listaDeNumerosSorteados.length;
+
+  qntdElementosLista == numeroLimite ? (listaDeNumerosSorteados = []) : null;
+
+  if (
+    listaDeNumerosSorteados.includes(numeroEscolhido)
+    // && listaDeNumerosSorteados.length < 10
+  ) {
+    // console.log('numero repetido gerado, gerando novamente');
+    return gerarNumeroAleatorio();
+  } else {
+    listaDeNumerosSorteados.push(numeroEscolhido);
+    console.table(listaDeNumerosSorteados);
+    numeroAleatorio = numeroEscolhido;
+  }
 }
 
 function limparChute() {
@@ -47,9 +64,9 @@ function limparChute() {
 }
 
 function reiniciarJogo() {
-  limparChute();
   reiniciarBt.toggleAttribute('disabled');
-  numeroAleatorio = gerarNumeroAleatorio();
+  limparChute();
+  gerarNumeroAleatorio();
   exibirMensagemInicial();
   tentativas = 1;
 }
