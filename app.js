@@ -9,10 +9,14 @@ let numeroAleatorio;
 gerarNumeroAleatorio();
 let tentativas = 1;
 let reiniciarBt = document.getElementById('reiniciar');
+alert(
+  'Para uma melhor experiência, utilize o Chrome como navegador. A integração com a API ResponsiveVoice funciona corretamente lá.'
+);
 
 function exibirTextoNaTela(tag, texto) {
   let campo = document.querySelector(tag);
   campo.innerHTML = texto;
+  responsiveVoice.speak(texto, 'Brazilian Portuguese Female', { rate: 1.2 });
 }
 
 function exibirMensagemInicial() {
@@ -45,10 +49,7 @@ function gerarNumeroAleatorio() {
 
   qntdElementosLista == numeroLimite ? (listaDeNumerosSorteados = []) : null;
 
-  if (
-    listaDeNumerosSorteados.includes(numeroEscolhido)
-    // && listaDeNumerosSorteados.length < 10
-  ) {
+  if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
     // console.log('numero repetido gerado, gerando novamente');
     return gerarNumeroAleatorio();
   } else {
